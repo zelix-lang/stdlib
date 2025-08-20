@@ -34,6 +34,7 @@ extern void *std_unsafe_mem_malloc(size_t size)
 {
     if (size == 0)
     {
+        // Todo: Maybe panic
         return NULL;
     }
 
@@ -43,6 +44,7 @@ extern void *std_unsafe_mem_malloc(size_t size)
     // If allocation failed, return NULL
     if (!ptr)
     {
+        // Todo: Maybe panic
         return NULL;
     }
 
