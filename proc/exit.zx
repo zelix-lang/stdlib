@@ -31,7 +31,7 @@ pub fun exit(code: num) {
     __exit(code);
 }
 
-interop("@std/shared/proc/exit.zx")
+interop("@std/shared/proc/exit.c")
 fun __exit(code: num) {
     // Interface //
 }
