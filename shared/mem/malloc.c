@@ -30,7 +30,7 @@
 #include <stdlib.h>
 
 /// Zelix's C Bridge for memory allocation.
-extern void *std_unsafe_mem_malloc(size_t size)
+extern char *std_unsafe_mem_malloc(size_t size)
 {
     if (size == 0)
     {
@@ -49,5 +49,10 @@ extern void *std_unsafe_mem_malloc(size_t size)
     }
 
     // Return the allocated memory pointer
-    return ptr;
+    return (char *)ptr;
+}
+
+extern void *std_unsafe_mem_free(void *ptr)
+{
+    free(ptr);
 }
