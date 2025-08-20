@@ -31,3 +31,9 @@ pub fun malloc(size: large) -> &str {
     // Interface //
     // Actual implementation is in C. //
 }
+
+interop("@std/shared/mem/malloc.c")
+pub fun free(ptr: &str) {
+    // Interface //
+    // Actual implementation is in C. //
+}
