@@ -31,7 +31,7 @@
 
 /// The Zelix Programming Language's
 /// Built-in exit() implementation
-extern void std_proc_exit(const int code)
+extern void std_proc___exit(const int code)
 {
     // Offloaded to libc
     exit(code);
