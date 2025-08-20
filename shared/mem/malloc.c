@@ -28,14 +28,15 @@
 //
 
 #include <stdlib.h>
+#include <stdio.h>
 
 /// Zelix's C Bridge for memory allocation.
 extern char *std_unsafe_mem_malloc(size_t size)
 {
     if (size == 0)
     {
-        // Todo: Maybe panic
-        return NULL;
+        printf("Zelix Panic: std.unsafe.mem.malloc called with size 0.");
+        exit(1);
     }
 
     // Allocate memory using malloc
@@ -44,8 +45,8 @@ extern char *std_unsafe_mem_malloc(size_t size)
     // If allocation failed, return NULL
     if (!ptr)
     {
-        // Todo: Maybe panic
-        return NULL;
+        printf("Zelix Panic: Out of memory. Could not allocate %zu bytes.", size);
+		exit(1);
     }
 
     // Return the allocated memory pointer
