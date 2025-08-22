@@ -26,7 +26,8 @@
 #include <stddef.h>
 #include <string.h>
 
-extern struct std_buf_StdoutBuffer {
+extern struct std_buf_StdoutBuffer
+{
     size_t pos;
     char buf[1024];
 } std_buf_StdoutBuffer;
@@ -35,7 +36,8 @@ extern void std_buf_write(
     struct std_buf_StdoutBuffer *inst,
     char *buf,
     size_t n
-) {
+)
+{
     // Bounds checking performed by the Zelix side
     // check @std/io/print
     memcpy(inst->buf + inst->pos, buf, n);
@@ -44,13 +46,22 @@ extern void std_buf_write(
 
 extern int std_buf_max(
     struct std_buf_StdoutBuffer *inst
-) {
+)
+{
     return sizeof(inst->buf);
 }
 
 extern void std_buf_pos(
     struct std_buf_StdoutBuffer *inst,
     int p
-) {
+)
+{
     inst->pos = p;
+}
+
+extern char *std_buf_leak(
+    struct std_buf_StdoutBuffer *inst
+)
+{
+    return inst->buf;
 }
