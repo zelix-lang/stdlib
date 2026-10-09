@@ -17,3 +17,4 @@
 package std::io;
 
 pub fun println(s: str): nothing;
+pub fun print(s: str): nothing;

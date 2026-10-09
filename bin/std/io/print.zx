@@ -16,11 +16,13 @@
 
 package std::io;
 
-import std::unsafe_boundary::no_mangle;
+import std::unsafe_boundary::base::fputs;
 
-@std::unsafe_boundary::no_mangle
-unsafe fun puts(s: str): nothing;
+pub fun print(s: str): nothing {
+    std::unsafe_boundary::base::fputs(s);
+}
 
 pub fun println(s: str): nothing {
-    puts(s);
+    print(s);
+    print("\n");
 }
