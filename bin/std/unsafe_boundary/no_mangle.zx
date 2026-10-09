@@ -14,7 +14,7 @@
 //
 //#==|------------------------------------------------------|==#
 
-package std_bin::unsafe_boundary;
+package std::unsafe_boundary;
 
 pub @no_mangle {
     mangle = "";

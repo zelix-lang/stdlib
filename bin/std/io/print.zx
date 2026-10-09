@@ -14,12 +14,13 @@
 //
 //#==|------------------------------------------------------|==#
 
-package std_bin::unsafe_boundary;
+package std::io;
 
-pub @std_io_mangle {
-    mangle = "std_io_";
-}
+import std::unsafe_boundary::no_mangle;
 
-pub @std_process_mangle {
-    mangle = "std_process_";
+@std::unsafe_boundary::no_mangle
+unsafe fun puts(s: str): nothing;
+
+pub fun println(s: str): nothing {
+    puts(s);
 }

@@ -14,15 +14,13 @@
 //
 //#==|------------------------------------------------------|==#
 
-package std_bin::io;
+package std::process;
 
-import std_bin::unsafe_boundary::no_mangle;
-import std_bin::unsafe_boundary::std_mangle;
+import std::unsafe_boundary::no_mangle;
 
-@std_bin::unsafe_boundary::no_mangle
-unsafe fun puts(s: str): nothing;
+@std::unsafe_boundary::no_mangle
+unsafe fun exit(code: num): nothing;
 
-@std_bin::unsafe_boundary::std_io_mangle
-pub fun println(s: str): nothing {
-    puts(s);
+pub fun terminate(code: num): nothing {
+    exit(code);
 }

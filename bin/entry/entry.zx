@@ -16,12 +16,12 @@
 
 package std_bin::unsafe_boundary;
 
-import std_bin::unsafe_boundary::no_mangle;
+import std::unsafe_boundary::no_mangle;
 
-@std_bin::unsafe_boundary::no_mangle
+@std::unsafe_boundary::no_mangle
 unsafe fun main_main(): nothing;
 
-@std_bin::unsafe_boundary::no_mangle
+@std::unsafe_boundary::no_mangle
 pub fun main(): num {
     main_main();
     return 0;
