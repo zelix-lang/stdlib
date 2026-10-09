@@ -20,94 +20,99 @@
 [Contributing]: CONTRIBUTING.md
 [stdlib]: https://github.com/zelix-lang/stdlib
 
-Welcome to the main repository of the [Zelix Programming Language][Website].
-Here, you will find the source code for the Zelix compiler.
-The code for the standard library can be found in the [stdlib] repository.
+# Zelix
 
-### ⚡ What is Zelix?
+Zelix is an experimental, statically typed systems programming language focused on safety, correctness, and native performance. Its compiler is written in C++20 and uses LLVM to produce native binaries.
 
-Zelix is an imperative, statically-typed programming language
-designed with performance and simplicity in mind.
+> The `dev` branch is under active development. Expect language features, compiler behavior, and build requirements to change.
 
----
+## What is in this repository?
 
-### ⚡ Why Zelix?
+- `Src/` — the compiler, command-line interface, language front end, IR passes, and LLVM backend.
+- `Build/Black_Magic/` — language definitions and Typed scripts that generate compiler headers and CLI bindings during configuration.
+- `Build/CMake/` — CMake setup, dependency registration, and build helpers.
+- `Example/` — small Zelix programs, including a Hello World program and a package/macro example.
 
-- **⚡ Performance** — Designed for speed, with aggressive low-level optimizations.
-- **🛡 Memory safety** — Guaranteed at compile time — no garbage collector, no borrow checker headaches.
-- **✍ Simplicity** — A clean, approachable syntax that gets out of your way.
-- **🔍 Static typing** — Catch type errors early and get better performance, all at compile time.
+## Prerequisites
 
----
+To build Zelix, install the following:
 
-### 📦 Installation
+- A C++20 compiler.
+- CMake 3.31 or later.
+- LLVM, including `llvm-config` and CMake package files discoverable by `find_package(LLVM CONFIG)`.
+- [Typed](https://github.com/zelix-lang/Typed), built separately. Set `ZELIX_TYPED_LOCATION` to its executable.
+- Git and internet access for CMake to retrieve the C++ dependencies on the first configure.
 
-Before you begin, please make sure you have the following prerequisites installed:
-- A C and C++ compiler (GCC or Clang are recommended).
-- CMake (version 3.16 or higher), can be uninstalled after Zelix is installed.
-- A Git client (for cloning the repository)
-- **LLVM (version 16 or higher).**
+On macOS with Homebrew LLVM, make its tools visible before configuring:
 
-> **Note**: C++ Compilers can be uninstalled after Zelix is installed if they are no longer a dependency.
-> However, C compilers and libc must remain available, since the Zelix compilers relies on `cc`.
+```sh
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+```
 
-Installation is simple. There are three main ways to install Zelix:
+Set the Typed executable location for the current shell:
 
-1. **Build from source**: Clone the repository and run the build script.
-   ```bash
-   git clone https://github.com/zelix-lang/Zelix.git
-   cd Zelix
-   ./build.sh
-   mv ./build/zelix /usr/local/bin/zelix
-    ```
-2. **Download and run the automatic installer**:
-   ```bash
-   git clone https://github.com/zelix-lang/installer.git
-   cd installer
-   ./install.sh
-   ```
-3. **Use a package manager**: Zelix is available on various package managers.
-   - **Homebrew**: 
-    ```bash
-    brew tap zelix-lang/installer-brew
-    brew install zelix-lang
-    ```
-    - **AUR**:
-    ```bash
-    yay -S zelix-lang
-    ```
-    - **Debian/Fedora-based distributions and Windows**:
-    Unfortunately, Zelix is not available on these package managers yet.
-    You can use the **build from source** method instead.
+```sh
+export ZELIX_TYPED_LOCATION=/absolute/path/to/typed
+```
 
----
+## Build from source
 
-### 👾 Supported Platforms & Architectures
-Zelix can run on almost any platform that supports a C compiler.
-Currently, Windows support is not available, and it is not planned for the near future.
-Zelix is primarily developed and tested on Linux and macOS.
+Clone the development branch using SSH:
 
----
+```sh
+git clone --branch dev --single-branch git@github.com:zelix-lang/Zelix.git
+cd Zelix
+```
 
-### 🤝 Getting Involved
-We welcome contributions! Whether you're fixing bugs, adding features, or improving documentation, your help is
-appreciated. Check out our [Contributing Guide][Contributing] for more details.
+Configure and build with the `cmake-build-debug` directory:
 
----
+```sh
+cmake -S . -B cmake-build-debug
+cmake --build cmake-build-debug --parallel
+```
 
-If you consider Zelix has inspired you to create something amazing,
-you can read the [Zelix Internals Book](https://docs.zelixlang.dev/zelix-internals-book)
-to learn how Zelix works under the hood and how it was implemented and written from scratch.
+The Typed generation scripts currently write generated headers to `cmake-build-debug/Generated`, so that directory name is required for a successful build. The resulting executable is typically `cmake-build-debug/Zelix` (add `.exe` on Windows).
 
----
+## Compile a Zelix program
 
-### 📚 Documentation
-For detailed documentation, including language features, standard library usage, and more,
-please visit our [Documentation][Documentation] page.
+The compiler exposes `compile` (or `c`) and `explain` (or `e`) subcommands. Run the executable without arguments to see the generated help text.
 
----
+Compile the included Hello World example:
 
-### 📝 License
-Zelix is licensed under the [GNU General Public License v3.0](LICENSE).
-This means you can use, modify, and distribute it freely, as long as you keep the
-same license for your modifications and distributions.
+```sh
+./cmake-build-debug/Zelix compile Example/Main.zx \
+  --target-path ./out \
+  --executable-name hello
+```
+
+Optional compiler flags:
+
+| Flag | Purpose |
+| --- | --- |
+| `--release` | Optimize generated code for release. |
+| `--profile` | Profile compiler performance. |
+| `--aliasing-check` | Enable aliasing-bug checks. |
+| `--lib` | Build a library instead of an executable. |
+| `--lib-c` | Link against libc and the CRT. |
+| `--no-std-lib` | Do not link the standard library. |
+| `--worker-threads <1-10>` | Set the number of concurrent analysis workers. |
+
+## Example
+
+`Example/Main.zx` is a minimal Zelix program:
+
+```zx
+package main;
+
+import std::io::print;
+
+fun main(): nothing {
+    std::io::println("Hello, world!");
+}
+```
+
+See `Example/Pack.zx` for packages, methods, annotations, and macro-generated accessors.
+
+## License
+
+Zelix is licensed under the [Apache License 2.0](LICENSE).
