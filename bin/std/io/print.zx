@@ -16,10 +16,10 @@
 
 package std::io;
 
-import std::unsafe_boundary::base::fputs;
+import std::unsafe_boundary::base::stdout;
 
 pub fun print(s: str): nothing {
-    std::unsafe_boundary::base::fputs(s);
+    std::unsafe_boundary::base::__put_stdout(s);
 }
 
 pub fun println(s: str): nothing {
