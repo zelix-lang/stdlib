@@ -2,3 +2,4 @@
 .vscode
 bin/build
 bin/entry_build
+bin/interop_build
