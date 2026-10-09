@@ -36,8 +36,13 @@ if [ -d "entry_build" ]; then
     rm -rf entry_build/*
 fi
 
+if [ -d "interop_build" ]; then
+    rm -rf interop_build/*
+fi
+
 mkdir -p build/logs
 mkdir -p entry_build/logs
+mkdir -p interop_build/logs
 
 echo "\033[1;92mDone.\033[0m"
 echo "\033[90m----------------------------\033[0m"
@@ -55,6 +60,21 @@ find "std" -type f -print0 | while IFS= read -r -d '' file; do
         if [ $? -ne 0 ]; then
             echo "\r\033[1;91m[Error] @ $file\033[0m"
             echo "Check the log file: build/logs/$(basename "$file").log"
+            exit 1
+        else
+            echo "\r\033[1;92m[Success] @ $file\033[0m"
+        fi
+    fi
+done
+
+find "interop" -type f -print0 | while IFS= read -r -d '' file; do
+    if [ -f "$file" ]; then
+        printf "\033[90m[Compiling] $file\033[0m"
+        cc $file -o "interop_build/$(basename "$file" .c).o" -c -fPIC > "interop_build/logs/$(basename "$file").log" 2>&1
+
+        if [ $? -ne 0 ]; then
+            echo "\r\033[1;91m[Error] @ $file\033[0m"
+            echo "Check the log file: interop_build/logs/$(basename "$file").log"
             exit 1
         else
             echo "\r\033[1;92m[Success] @ $file\033[0m"
@@ -83,7 +103,7 @@ fi
 echo "\033[90m----------------------------\033[0m"
 echo "\033[90m4. Linking\033[0m\n"
 
-link_files=("build"/*.o)
+link_files=("build"/*.o "interop_build"/*.o)
 
 if [ ${#link_files[@]} -gt 0 ]; then
     printf "\033[90m[Linking] $file\033[0m"
