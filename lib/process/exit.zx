@@ -16,4 +16,4 @@
 
 package std::process;
 
-pub fun terminate(c: num): nothing;
+pub fun exit(c: i32): nothing;

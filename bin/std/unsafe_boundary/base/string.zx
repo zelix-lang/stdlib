@@ -14,13 +14,9 @@
 //
 //#==|------------------------------------------------------|==#
 
-package std::process;
+package std::unsafe_boundary::base;
 
 import std::unsafe_boundary::no_mangle;
 
 @std::unsafe_boundary::no_mangle
-unsafe fun exit(code: num): nothing;
-
-pub fun terminate(code: num): nothing {
-    exit(code);
-}
+pub fun strlen(s: str): i32;

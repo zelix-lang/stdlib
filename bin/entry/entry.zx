@@ -22,7 +22,7 @@ import std::unsafe_boundary::no_mangle;
 unsafe fun main_main(): nothing;
 
 @std::unsafe_boundary::no_mangle
-pub fun main(): num {
+pub fun main(): i32 {
     main_main();
     return 0;
 }
