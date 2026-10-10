@@ -19,7 +19,7 @@ package std::unsafe_boundary::base;
 import std::unsafe_boundary::no_mangle;
 
 @std::unsafe_boundary::no_mangle
-pub fun __put_stdout(s: str): nothing;
+pub fun __put_stdout(s: *char): nothing;
 
 @std::unsafe_boundary::no_mangle
-pub fun __put_stderr(s: str): nothing;
+pub fun __put_stderr(s: *char): nothing;

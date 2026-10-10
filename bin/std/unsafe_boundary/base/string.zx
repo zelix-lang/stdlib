@@ -19,4 +19,4 @@ package std::unsafe_boundary::base;
 import std::unsafe_boundary::no_mangle;
 
 @std::unsafe_boundary::no_mangle
-pub fun strlen(s: str): i32;
+pub fun strlen(s: *char): i32;
