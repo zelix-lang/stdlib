@@ -18,3 +18,7 @@ package std::io;
 
 pub fun println(s: str): nothing;
 pub fun print(s: str): nothing;
+pub fun out(s: str): nothing;
+pub fun outln(s: str): nothing;
+pub fun err(s: str): nothing;
+pub fun errln(s: str): nothing;

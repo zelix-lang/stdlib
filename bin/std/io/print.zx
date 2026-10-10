@@ -18,11 +18,23 @@ package std::io;
 
 import std::unsafe_boundary::base::stdout;
 
-pub fun print(s: str): nothing {
+pub fun err(s: str): nothing {
+    std::unsafe_boundary::base::__put_stderr(s);
+}
+
+pub fun errln(s: str): nothing {
+    err(s);
+    err("\n");
+}
+
+pub fun out(s: str): nothing {
     std::unsafe_boundary::base::__put_stdout(s);
 }
 
-pub fun println(s: str): nothing {
+pub fun outln(s: str): nothing {
     print(s);
     print("\n");
 }
+
+pub fun print(s: str): nothing { out(s); }
+pub fun println(s: str): nothing { outln(s); }

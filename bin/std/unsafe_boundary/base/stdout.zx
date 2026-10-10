@@ -20,3 +20,6 @@ import std::unsafe_boundary::no_mangle;
 
 @std::unsafe_boundary::no_mangle
 pub fun __put_stdout(s: str): nothing;
+
+@std::unsafe_boundary::no_mangle
+pub fun __put_stderr(s: str): nothing;

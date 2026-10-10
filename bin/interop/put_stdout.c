@@ -20,3 +20,8 @@ void __put_stdout(const char* str)
 {
     fputs(str, stdout);
 }
+
+void __put_stderr(const char* str) 
+{
+    fputs(str, stderr);
+}
