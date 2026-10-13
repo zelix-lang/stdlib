@@ -16,9 +16,9 @@
 
 package std::io;
 
-pub fun println(s: *char): nothing;
-pub fun print(s: *char): nothing;
-pub fun out(s: *char): nothing;
-pub fun outln(s: *char): nothing;
-pub fun err(s: *char): nothing;
-pub fun errln(s: *char): nothing;
+pub fun println(s: str): nothing;
+pub fun print(s: str): nothing;
+pub fun out(s: str): nothing;
+pub fun outln(s: str): nothing;
+pub fun err(s: str): nothing;
+pub fun errln(s: str): nothing;
