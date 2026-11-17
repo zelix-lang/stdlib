@@ -52,10 +52,11 @@ find "std" -type f -print0 | while IFS= read -r -d '' file; do
     if [ -f "$file" ]; then
         printf "\033[90m[Compiling] $file\033[0m"
         "$ZELIX_COMPILER" compile "$file" \
-            -p -r --wT 5 \
+            --p --r --wT 5 \
             --tP build \
             --eN zelix_stdlib \
-            --lib --lC --nSL > "build/logs/$(basename "$file").log" 2>&1
+            --iD "$(pwd)" \
+            --lib --lC > "build/logs/$(basename "$file").log" 2>&1
 
         if [ $? -ne 0 ]; then
             echo "\r\033[1;91m[Error] @ $file\033[0m"
@@ -87,10 +88,11 @@ echo "\033[90m3. Compiling entry point\033[0m\n"
 
 printf "\033[90m[Compiling] entry/entry.zx\033[0m"
 "$ZELIX_COMPILER" compile "entry/entry.zx" \
-    -p -r --wT 5 \
+    --p --r --wT 5 \
     --tP entry_build \
     --eN zelix_stdlib \
-    --lib --lC --nSL > "entry_build/logs/entry_entry.log" 2>&1
+    --iD "$(pwd)" \
+    --lib --lC > "entry_build/logs/entry_entry.log" 2>&1
 
 if [ $? -ne 0 ]; then
     echo "\r\033[1;91m[Error] @ entry/entry.zx\033[0m"
@@ -134,9 +136,10 @@ echo "Build completed successfully."
 echo "Shared library: \033[90m$(pwd)/build/zelix_stdlib.so\033[0m"
 echo ""
 
-echo "Add the following lines to your shell configuration file:"
-echo "\033[1mexport ZELIX_BUILT_STDLIB_PATH=\"$(pwd)/build/zelix_stdlib.so\"\033[0m"
-echo "\033[1mexport ZELIX_BUILT_ENTRY_PATH=\"$(pwd)/entry_build/entry_entry.o\"\033[0m"
+echo "The Zelix Standard Library was built at:"
+echo "\033[1mShared library: \"$(pwd)/build/zelix_stdlib.so\"\033[0m"
+echo "\033[1mEntry path: \"$(pwd)/entry_build/entry_entry.o\"\033[0m"
+echo "\033[1mInclude directories: \"$(realpath $(pwd)/../lib)\"\033[0m"
 cd "$initial_pwd" || exit 1
 
 shopt -u nullglob
