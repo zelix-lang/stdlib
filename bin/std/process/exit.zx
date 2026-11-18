@@ -18,6 +18,6 @@ package std::process;
 
 import std::unsafe_boundary::base::process;
 
-pub fun exit(code: i32): nothing {
+pub fun exit(code: i32): void {
     std::unsafe_boundary::base::process::exit(code);
 }

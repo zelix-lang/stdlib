@@ -19,4 +19,4 @@ package std::unsafe_boundary::base::process;
 import std::unsafe_boundary::no_mangle;
 
 @std::unsafe_boundary::no_mangle
-unsafe fun exit(code: i32): nothing;
+unsafe fun exit(code: i32): void;

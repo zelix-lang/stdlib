@@ -19,7 +19,7 @@ package std_bin::unsafe_boundary;
 import std::unsafe_boundary::no_mangle;
 
 @std::unsafe_boundary::no_mangle
-unsafe fun main_main(): nothing;
+unsafe fun main_main(): void;
 
 @std::unsafe_boundary::no_mangle
 pub fun main(): i32 {

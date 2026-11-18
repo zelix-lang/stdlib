@@ -106,7 +106,7 @@ package main;
 
 import std::io::print;
 
-fun main(): nothing {
+fun main(): void {
     std::io::println("Hello, world!");
 }
 ```
